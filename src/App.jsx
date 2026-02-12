@@ -17,36 +17,40 @@ function App() {
   const locations = ["all", ...new Set(jobs.map(job => job.location))]
   const jobTypes = ["all", ...new Set(jobs.map(job => job.type))]
 
-   useEffect(()=>{setFilteredJobs(jobs.filter(job => {
+   useEffect(()=>{
+    setFilteredJobs(jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchInput.toLowerCase())
     const matchesLocation = selectedLocation === "all" || job.location === selectedLocation
-    const matchesType = selectedType === "all" || job.type === selectedType
-    
-    return matchesSearch && matchesLocation && matchesType
-  }))},[searchInput])
+      const matchesType = selectedType === "all" || job.type === selectedType
+
+      return matchesSearch && matchesLocation && matchesType
+    }
+    )
+    )
+   }, [searchInput, selectedLocation, selectedType])
 
   console.log({isSort,filteredJobs})
 
-  useEffect(()=>{
-      if(isSort){
-        setFilteredJobs(prev=>prev.sort((a,b)=>{
-         const val1=a.title.toLocaleLowerCase()
-         const val2=b.title.toLocaleLowerCase()
+  // useEffect(()=>{
+  //     if(isSort){
+  //       setFilteredJobs(prev=>prev.sort((a,b)=>{
+  //        const val1=a.title.toLocaleLowerCase()
+  //        const val2=b.title.toLocaleLowerCase()
 
-         if(val1<val2){
-          return -1
-         }
-         if (val2 > val1) {
-            return 1;
-        }
-        return 0;
-        }))
-      }
-      else {
-        setFilteredJobs(jobs)
-      }
+  //        if(val1<val2){
+  //         return -1
+  //        }
+  //        if (val2 > val1) {
+  //           return 1;
+  //       }
+  //       return 0;
+  //       }))
+  //     }
+  //     else {
+  //       setFilteredJobs(jobs)
+  //     }
 
-  },[isSort])
+  // },[isSort])
 
   return (
     <div className='main-body'>
